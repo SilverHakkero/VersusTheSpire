@@ -1,0 +1,25 @@
+{
+  "vsthespire:agony": {
+    "NAME": "Agony",
+    "DESCRIPTION": "Lose X HP. NL Draw 1 card. NL Exhaust.",
+    "EXTENDED_DESCRIPTION": ["Lose !M! HP. NL Draw 1 card. NL Exhaust."]
+  },
+  "vsthespire:judged": {
+    "NAME": "Judged",
+    "DESCRIPTION": "At the end of your turn, die."
+  },
+  "vsthespire:lamentation": {
+    "NAME": "Lamentation",
+    "DESCRIPTION": "Exhaust. NL At the end of your turn, set your HP to 1 and Exhaust."
+  },
+  "vsthespire:paralysis": {
+    "NAME": "Paralysis",
+    "DESCRIPTION": "Retain. NL Exhaust. NL Lose X HP when Exhausted. NL Decrease it's damage by 5 when Retained.",
+    "EXTENDED_DESCRIPTIONS": ["Retain. NL Exhaust. NL Lose !M! HP when Exhausted. NL Decrease it's damage by 5 when Retained."]
+  },
+  "vsthespire:poison": {
+    "NAME": "Poison",
+    "DESCRIPTION": "At the end of your turn, if you haven't this turn, lose HP equal to your current Poison and Exhaust.",
+    "EXTENDED_DESCRIPTION": [" NL (Lose !M! HP.)"]
+  }
+}

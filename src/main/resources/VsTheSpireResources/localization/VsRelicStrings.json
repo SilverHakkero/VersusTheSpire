@@ -1,0 +1,9 @@
+{
+  "vsthespire:mirrorshard": {
+    "NAME": "Mirror Shard",
+    "FLAVOR": "A Mysterious shard of a broken mirror. Holding it fills you with an unnatural vitality.",
+    "DESCRIPTIONS": [
+      "When you would die, add a #rDecay to your deck, heal to your Max HP, and escape if fighting your rival instead. Works once per shard."
+    ]
+  }
+}

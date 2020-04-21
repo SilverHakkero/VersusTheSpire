@@ -1,0 +1,18 @@
+{
+  "vsthespire:mirrorevent": {
+    "NAME": "Mirror(?)",
+    "DESCRIPTIONS": [
+      "intro",
+      "success",
+      "post fight",
+      "failure",
+      "leave"
+    ],
+    "OPTIONS": [
+      "[Touch] ???",
+      "[Fight]",
+      "[Wait]",
+      "[Leave]"
+    ]
+  }
+}
