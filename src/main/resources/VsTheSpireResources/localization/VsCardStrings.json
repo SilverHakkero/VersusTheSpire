@@ -19,7 +19,6 @@
   },
   "vsthespire:poison": {
     "NAME": "Poison",
-    "DESCRIPTION": "At the end of your turn, if you haven't this turn, lose HP equal to your current Poison and Exhaust.",
-    "EXTENDED_DESCRIPTION": [" NL (Lose !M! HP.)"]
+    "DESCRIPTION": "At the end of your turn, if you haven't this turn, lose HP equal to your current Poison and Exhaust."
   }
 }

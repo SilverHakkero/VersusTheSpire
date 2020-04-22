@@ -18,7 +18,6 @@ public class Poison extends CustomCard {
     private static final CardStrings cardStrings = CardCrawlGame.languagePack.getCardStrings(ID);
     public static final String NAME = cardStrings.NAME;
     public static final String DESCRIPTION = cardStrings.DESCRIPTION;
-    public static final String[] EXTENDED_DESCRIPTION = cardStrings.EXTENDED_DESCRIPTION;
     public static final String IMG_PATH = VsTheSpire.IMAGEPATH + "cards/CardArtPlaceHolder.png";
     private static final int COST = 1;
 
@@ -60,8 +59,6 @@ public class Poison extends CustomCard {
             this.baseMagicNumber = 0;
         }
         super.applyPowers();
-        this.rawDescription = DESCRIPTION + EXTENDED_DESCRIPTION[0];
-        initializeDescription();
     }
 
     @Override
