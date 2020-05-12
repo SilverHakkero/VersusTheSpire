@@ -19,7 +19,7 @@ public class Paralysis extends CustomCard {
     public static final String DESCRIPTION = cardStrings.DESCRIPTION;
     public static final String[] EXTENDED_DESCRIPTIONS = cardStrings.EXTENDED_DESCRIPTION;
     public static final String IMG_PATH = VsTheSpire.IMAGEPATH + "cards/CardArtPlaceHolder.png";
-    private static final int COST = 1;
+    private static final int COST = 0;
 
     public Paralysis() {
         super(ID, NAME, IMG_PATH, COST, DESCRIPTION,
