@@ -3,6 +3,7 @@ package vsthespire.actions;
 import com.megacrit.cardcrawl.actions.AbstractGameAction;
 import com.megacrit.cardcrawl.actions.common.ApplyPowerAction;
 import com.megacrit.cardcrawl.actions.common.GainBlockAction;
+import com.megacrit.cardcrawl.actions.common.RollMoveAction;
 import com.megacrit.cardcrawl.core.AbstractCreature;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.monsters.AbstractMonster;
@@ -26,8 +27,9 @@ public class VsRivalWaitAction extends AbstractGameAction{
             if(!AbstractDungeon.getMonsters().areMonstersBasicallyDead()) {
                 if(!VsTheSpire.isConnected){
                     //For Testing
-                    addToBot(new GainBlockAction(this.source, 10));
-                    addToBot(new ApplyPowerAction(this.source, this.source, new AggroPower(this.source, 3)));
+                    addToBot(new GainBlockAction(this.source, 5));
+                    addToBot(new ApplyPowerAction(this.source, this.source, new AggroPower(this.source, 9)));
+                    addToBot(new RollMoveAction((AbstractMonster)this.source));
                 }
                 else {
                     if(myIO.hasInput()){

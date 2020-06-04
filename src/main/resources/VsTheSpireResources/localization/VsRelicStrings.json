@@ -3,7 +3,7 @@
     "NAME": "Mirror Shard",
     "FLAVOR": "A Mysterious shard of a broken mirror. Holding it fills you with an unnatural vitality.",
     "DESCRIPTIONS": [
-      "When you would die, add a #rDecay to your deck, heal to your Max HP, and escape if fighting your rival instead. Works once per shard."
+      "When you would die, add a #rDecay to your deck and heal to #b50% of your Max HP instead (works once per combat). When fighting your rival, heal to your Max HP and flee the current combat instead."
     ]
   }
 }
