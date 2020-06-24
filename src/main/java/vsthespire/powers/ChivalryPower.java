@@ -63,26 +63,36 @@ public class ChivalryPower extends VsAbstractPower implements BetterOnApplyPower
     public DamageMode getDamageMode() {return this.mode;}
 
     public int onAttackToChangeDamagePreBlock(DamageInfo info, int damage) {
-        switch(this.mode) {
-            case STRIKE:
-                break;
-            case SILENT:
-            case CHARGE:
-                flash();
-                switch(info.type) {
-                    case NORMAL:
-                        addToBot(new ApplyPowerAction(this.owner, this.owner, new AggroPower(this.owner, damage)));
-                        damage = 0;
-                        break;
-                    case THORNS:
-                        addToBot(new ApplyPowerAction(this.owner, this.owner, new PassiveAggroPower(this.owner, damage)));
-                        damage = 0;
-                }
-            case BLOCK:
-                damage = 0;
+        //hp loss goes through (handled by onAttackedToChangeDamage)
+        //strike mode also lets damage through
+        if(info.type != DamageInfo.DamageType.HP_LOSS && this.mode != DamageMode.STRIKE) {
+            flash();
+            //convert damage to powers if charging or silent
+            if(this.mode == DamageMode.CHARGE || this.mode == DamageMode.SILENT) {
+                if(info.type == DamageInfo.DamageType.NORMAL)
+                    addToBot(new ApplyPowerAction(this.owner, this.owner, new AggroPower(this.owner, damage)));
+                else
+                    addToBot(new ApplyPowerAction(this.owner, this.owner, new PassiveAggroPower(this.owner, damage)));
+            }
+            //negate damage
+            damage = 0;
         }
         return damage;
     }
+
+    /*
+    @Override
+    public int onAttackedToChangeDamage(DamageInfo info, int damageAmount) {
+        //prevent hp loss that is not from self
+
+        if(info.owner != this.owner && info.type == DamageInfo.DamageType.HP_LOSS) {
+            flash();
+            return 0;
+        }
+
+        return super.onAttackedToChangeDamage(info, damageAmount);
+    }
+    */
 
     @Override
     public void atStartOfTurn() {
@@ -122,7 +132,7 @@ public class ChivalryPower extends VsAbstractPower implements BetterOnApplyPower
 
     @Override
     public void wasHPLost(DamageInfo info, int damageAmount) {
-        if(damageAmount > 0 && info.owner == this.owner && this.owner.isPlayer && this.mode != DamageMode.SILENT) {
+        if(VsTheSpire.isConnected && damageAmount > 0 && info.owner == this.owner && this.owner.isPlayer && this.mode != DamageMode.SILENT) {
             String msg = "loseHp;" + damageAmount;
             VsTheSpire.netIO.trySend(msg);
         }
@@ -130,17 +140,19 @@ public class ChivalryPower extends VsAbstractPower implements BetterOnApplyPower
 
     @Override
     public void onChangeStance(AbstractStance oldStance, AbstractStance newStance) {
-        String stanceString = "empty";
-        if(newStance instanceof CalmStance){
-            stanceString = "calm";
+        if(VsTheSpire.isConnected && this.mode != DamageMode.SILENT) {
+            String stanceString = "empty";
+            if (newStance instanceof CalmStance) {
+                stanceString = "calm";
+            }
+            if (newStance instanceof WrathStance) {
+                stanceString = "wrath";
+            }
+            if (newStance instanceof DivinityStance) {
+                stanceString = "divinity";
+            }
+            VsTheSpire.netIO.trySend("changeStance;" + stanceString);
         }
-        if(newStance instanceof WrathStance){
-            stanceString = "wrath";
-        }
-        if(newStance instanceof DivinityStance){
-            stanceString = "divinity";
-        }
-        VsTheSpire.netIO.trySend("changeStance;" + stanceString);
     }
 
 

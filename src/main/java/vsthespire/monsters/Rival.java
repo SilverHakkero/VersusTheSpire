@@ -207,19 +207,22 @@ public class Rival extends AbstractMonster {
         //Set Chivalry to STRIKE
         AbstractDungeon.actionManager.addToBottom(new ChivalryModeAction(this, ChivalryPower.DamageMode.STRIKE));
 
-        //Set info 1 to current passive, deal thorns damage equal to info 1, and remove passive
-        if(this.hasPower(PassiveAggroPower.ID)) {
-            this.damage.set(1, new DamageInfo(this, this.getPower(PassiveAggroPower.ID).amount, DamageInfo.DamageType.THORNS));
-            AbstractDungeon.actionManager.addToBottom(new DamageAction(AbstractDungeon.player, this.damage.get(1),
-                    AbstractGameAction.AttackEffect.NONE));
-            AbstractDungeon.actionManager.addToBottom(new RemoveSpecificPowerAction(this, this, PassiveAggroPower.ID));
-        }
-
-        //Deal normal damage equal to info 0 and remove aggro
+        //Set info 0, deal normal damage equal to info 0 and remove aggro
         if(this.hasPower(AggroPower.ID)) {
+            this.damage.set(0, new DamageInfo(this, this.getPower(AggroPower.ID).amount, DamageInfo.DamageType.NORMAL));
+            this.damage.get(0).applyPowers(this, AbstractDungeon.player);   //makes things like weak apply
             AbstractDungeon.actionManager.addToBottom(new DamageAction(AbstractDungeon.player, this.damage.get(0),
                     AbstractGameAction.AttackEffect.BLUNT_LIGHT));
             AbstractDungeon.actionManager.addToBottom(new RemoveSpecificPowerAction(this, this, AggroPower.ID));
+        }
+
+        //Set info 1 to current passive, deal thorns damage equal to info 1, and remove passive
+        if(this.hasPower(PassiveAggroPower.ID)) {
+            this.damage.set(1, new DamageInfo(this, this.getPower(PassiveAggroPower.ID).amount, DamageInfo.DamageType.THORNS));
+            this.damage.get(1).applyPowers(this, AbstractDungeon.player);
+            AbstractDungeon.actionManager.addToBottom(new DamageAction(AbstractDungeon.player, this.damage.get(1),
+                    AbstractGameAction.AttackEffect.NONE));
+            AbstractDungeon.actionManager.addToBottom(new RemoveSpecificPowerAction(this, this, PassiveAggroPower.ID));
         }
 
         //Set Chivalry to CHARGE and opponent's Chivalry to BLOCK
