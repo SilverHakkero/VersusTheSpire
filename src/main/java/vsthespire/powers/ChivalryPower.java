@@ -179,9 +179,9 @@ public class ChivalryPower extends VsAbstractPower implements BetterOnApplyPower
             //System.out.println(msg);
             VsTheSpire.netIO.trySend(msg);
         }
-        if(target == this.owner && source != this.owner && p instanceof StrengthPower
-                && this.owner.hasPower(AggroPower.ID) && !this.owner.hasPower(ArtifactPower.POWER_ID) && p.amount < 0) {
-            ((AggroPower)this.owner.getPower(AggroPower.ID)).reduceAggroByStrength(-p.amount);
+        if(target != this.owner && source == this.owner && p instanceof StrengthPower
+                && target.hasPower(AggroPower.ID) && !target.hasPower(ArtifactPower.POWER_ID) && p.amount < 0) {
+            ((AggroPower)target.getPower(AggroPower.ID)).reduceAggroByStrength(-p.amount);
         }
 
         return true;
