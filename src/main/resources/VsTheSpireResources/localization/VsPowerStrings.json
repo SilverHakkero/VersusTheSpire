@@ -14,10 +14,10 @@
     ]
   },
   "vsthespire:passive": {
-    "NAME": "Passive Aggro",
+    "NAME": "Charge",
     "DESCRIPTIONS": [
       "At the start of your next turn deal #b",
-      " non-attack damage to ALL enemies."
+      " damage to ALL enemies (Not an attack)."
     ]
   },
   "vsthespire:venomous": {

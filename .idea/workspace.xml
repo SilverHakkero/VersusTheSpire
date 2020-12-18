@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="619d99f8-ad3a-4124-aaa1-6842fe5a9bc7" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+    <list default="true" id="619d99f8-ad3a-4124-aaa1-6842fe5a9bc7" name="Default Changelist" comment="Strength Loss">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/VsTheSpireResources/localization/VsPowerStrings.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/VsTheSpireResources/localization/VsPowerStrings.json" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -113,7 +114,21 @@
       <option name="project" value="LOCAL" />
       <updated>1592968430556</updated>
     </task>
-    <option name="localTasksCounter" value="6" />
+    <task id="LOCAL-00006" summary="Added project files">
+      <created>1608273177493</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1608273177493</updated>
+    </task>
+    <task id="LOCAL-00007" summary="Aggro reduced by Strength bug fix">
+      <created>1608277796611</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1608277796611</updated>
+    </task>
+    <option name="localTasksCounter" value="8" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
@@ -124,25 +139,35 @@
     <MESSAGE value="Paralysis nerf: cost 1 -&gt; 0" />
     <MESSAGE value="Mirror Shard Reworked" />
     <MESSAGE value="Rival damage bug fix and Chivalry modifications" />
-    <option name="LAST_COMMIT_MESSAGE" value="Rival damage bug fix and Chivalry modifications" />
+    <MESSAGE value="Added project files" />
+    <MESSAGE value="Aggro reduced by Strength bug fix" />
+    <option name="LAST_COMMIT_MESSAGE" value="Aggro reduced by Strength bug fix" />
   </component>
   <component name="WindowStateProjectService">
-    <state width="1514" height="266" key="GridCell.Tab.0.bottom" timestamp="1608273032530">
+    <state x="620" y="114" key="CommitChangelistDialog2" timestamp="1608277794817">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1514" height="266" key="GridCell.Tab.0.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1608273032530" />
-    <state width="1514" height="266" key="GridCell.Tab.0.center" timestamp="1608273032529">
+    <state x="620" y="114" key="CommitChangelistDialog2/0.0.1920.1040@0.0.1920.1040" timestamp="1608277794817" />
+    <state width="1514" height="266" key="GridCell.Tab.0.bottom" timestamp="1608277606393">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1514" height="266" key="GridCell.Tab.0.center/0.0.1920.1040@0.0.1920.1040" timestamp="1608273032529" />
-    <state width="1514" height="266" key="GridCell.Tab.0.left" timestamp="1608273032528">
+    <state width="1514" height="266" key="GridCell.Tab.0.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1608277606393" />
+    <state width="1514" height="266" key="GridCell.Tab.0.center" timestamp="1608277606393">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1514" height="266" key="GridCell.Tab.0.left/0.0.1920.1040@0.0.1920.1040" timestamp="1608273032528" />
-    <state width="1514" height="266" key="GridCell.Tab.0.right" timestamp="1608273032529">
+    <state width="1514" height="266" key="GridCell.Tab.0.center/0.0.1920.1040@0.0.1920.1040" timestamp="1608277606393" />
+    <state width="1514" height="266" key="GridCell.Tab.0.left" timestamp="1608277606393">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1514" height="266" key="GridCell.Tab.0.right/0.0.1920.1040@0.0.1920.1040" timestamp="1608273032529" />
+    <state width="1514" height="266" key="GridCell.Tab.0.left/0.0.1920.1040@0.0.1920.1040" timestamp="1608277606393" />
+    <state width="1514" height="266" key="GridCell.Tab.0.right" timestamp="1608277606393">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state width="1514" height="266" key="GridCell.Tab.0.right/0.0.1920.1040@0.0.1920.1040" timestamp="1608277606393" />
+    <state x="558" y="253" key="Vcs.Push.Dialog.v2" timestamp="1608277801085">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="558" y="253" key="Vcs.Push.Dialog.v2/0.0.1920.1040@0.0.1920.1040" timestamp="1608277801085" />
     <state x="675" y="350" key="com.intellij.ide.util.TipDialog" timestamp="1608272481939">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
