@@ -61,7 +61,7 @@ public class VsTheSpire implements PostInitializeSubscriber,
     private String PortString = "9999";
     private int optionSelected = 0;
 
-    private String validChars = "abcdefghijklmnopqrstuvwxyz.0123456789";
+    private String validChars = "abcdefghijklmnopqrstuvwxyz.-:0123456789";
 
     private InputProcessor oldInputProcessor;
 

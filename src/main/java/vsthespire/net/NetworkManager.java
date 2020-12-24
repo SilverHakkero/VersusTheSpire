@@ -69,7 +69,7 @@ public class NetworkManager {
         if(isServer) {
             isBound = true;
             try {
-                server = new ServerSocket(portNum);
+                server = new ServerSocket(portNum, 1, null);
                 server.setSoTimeout(CONNECTWAITTIME);
             } catch (IOException e) {
                 isBound = false;

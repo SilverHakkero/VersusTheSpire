@@ -39,8 +39,10 @@ public class ChivalryPatch {
     public static class ModifyPlayerDamagePreBlockPatch {
         @SpireInsertPatch(locator = Locator2.class, localvars = {"damageAmount"})
         public static void Insert(AbstractPlayer __instance, DamageInfo info, @ByRef int[] damageAmount) {
-            if(info.owner.hasPower(ChivalryPower.ID)) {
-                damageAmount[0] = ((ChivalryPower)info.owner.getPower(ChivalryPower.ID)).onAttackToChangeDamagePreBlock(info, damageAmount[0]);
+            if(info.owner != null) {
+                if (info.owner.hasPower(ChivalryPower.ID)) {
+                    damageAmount[0] = ((ChivalryPower) info.owner.getPower(ChivalryPower.ID)).onAttackToChangeDamagePreBlock(info, damageAmount[0]);
+                }
             }
         }
 
