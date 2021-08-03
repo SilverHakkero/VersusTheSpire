@@ -11,9 +11,11 @@ import com.megacrit.cardcrawl.cards.AbstractCard;
 import com.megacrit.cardcrawl.cards.DamageInfo;
 import com.megacrit.cardcrawl.core.AbstractCreature;
 import com.megacrit.cardcrawl.core.CardCrawlGame;
+import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.localization.PowerStrings;
 import com.megacrit.cardcrawl.powers.*;
 import com.megacrit.cardcrawl.powers.watcher.VigorPower;
+import com.megacrit.cardcrawl.relics.Calipers;
 import com.megacrit.cardcrawl.stances.AbstractStance;
 import com.megacrit.cardcrawl.stances.CalmStance;
 import com.megacrit.cardcrawl.stances.DivinityStance;
@@ -31,6 +33,7 @@ public class ChivalryPower extends VsAbstractPower implements BetterOnApplyPower
     //private static final Texture img84 = new Texture(VsTheSpire.IMAGEPATH + "powers/Chivalry_84.png");
     //private static final Texture img32 = new Texture(VsTheSpire.IMAGEPATH + "powers/Chivalry_32.png");
     private DamageMode mode;
+    private boolean extraTurn;
 
 
     public enum DamageMode{
@@ -48,6 +51,7 @@ public class ChivalryPower extends VsAbstractPower implements BetterOnApplyPower
     public ChivalryPower(AbstractCreature owner) {
         super(ID, NAME, owner);
         this.mode = DamageMode.CHARGE;
+        this.extraTurn = false;
         //image stuffs
         //this.region128 = new TextureAtlas.AtlasRegion(img84, 0, 0, 84, 84);
         //this.region48 = new TextureAtlas.AtlasRegion(img32, 0, 0, 32, 32);
@@ -103,15 +107,42 @@ public class ChivalryPower extends VsAbstractPower implements BetterOnApplyPower
             addToBot(new ChivalryModeAction(this.owner, DamageMode.CHARGE));
         }
 
+        if(extraTurn){
+            //delay the damage for vaulting
+            if(this.owner.hasPower(AggroPower.ID))
+                ((AggroPower) this.owner.getPower(AggroPower.ID)).delayDamage();
+
+            if(this.owner.hasPower(PassiveAggroPower.ID))
+                ((PassiveAggroPower) this.owner.getPower(PassiveAggroPower.ID)).delayDamage();
+
+            //reduce the rival's block for vaulting
+            if(!this.owner.hasPower(BarricadePower.POWER_ID) && !this.owner.hasPower(BlurPower.POWER_ID)){
+                int amt = 0;
+                if(AbstractDungeon.player.hasRelic(Calipers.ID))
+                    amt = 15;
+
+                if(VsTheSpire.isConnected && this.owner.isPlayer)
+                    VsTheSpire.netIO.trySend("loseBlock;me;" + amt);
+            }
+
+            extraTurn = false;
+        }
+
         this.setDamageMode(DamageMode.CHARGE);
     }
 
     @Override
     public void atEndOfTurn(boolean isPlayer) {
-        if(isPlayer && VsTheSpire.isConnected)
+        if(isPlayer && VsTheSpire.isConnected && !extraTurn)
             VsTheSpire.netIO.trySend("done;null");
         setDamageMode(DamageMode.SILENT);
     }
+
+    public void takeExtraTurn() {
+        extraTurn = true;
+    }
+
+    public boolean isExtraTurn() {return extraTurn;}
 
     @Override
     public void onUseCard(AbstractCard c, UseCardAction a) {

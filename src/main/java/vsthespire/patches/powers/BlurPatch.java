@@ -10,7 +10,7 @@ public class BlurPatch {
 
     @SpirePatch(clz = BlurPower.class, method = SpirePatch.CONSTRUCTOR)
     public static class BlurConstructorPatch {
-        public static void PostFix(BlurPower __instance) {
+        public static void Postfix(BlurPower __instance) {
             if(!__instance.owner.isPlayer) {
                 isJustApplied = true;
             }
@@ -19,7 +19,7 @@ public class BlurPatch {
 
     @SpirePatch(clz = BlurPower.class, method = "atEndOfRound")
     public static class IsJustAppliedPatch {
-        public static SpireReturn PreFix(BlurPower __instance) {
+        public static SpireReturn Prefix(BlurPower __instance) {
             if(!__instance.owner.isPlayer) {
                 if(isJustApplied) {
                     isJustApplied = false;

@@ -4,6 +4,7 @@ package vsthespire.net;
 
 import com.megacrit.cardcrawl.actions.animations.VFXAction;
 import com.megacrit.cardcrawl.actions.common.*;
+import com.megacrit.cardcrawl.actions.utility.LoseBlockAction;
 import com.megacrit.cardcrawl.cards.AbstractCard;
 import com.megacrit.cardcrawl.characters.AbstractPlayer;
 import com.megacrit.cardcrawl.core.AbstractCreature;
@@ -24,7 +25,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 
 
-public class VsNetIO{
+public class VsNetIO {
     private BufferedReader myIn;
     private PrintWriter myOut;
 
@@ -44,7 +45,8 @@ public class VsNetIO{
         String msg = "";
         try {
             msg = myIn.readLine();
-        } catch (IOException e) {}
+        } catch (IOException e) {
+        }
         return msg;
     }
 
@@ -67,7 +69,7 @@ public class VsNetIO{
         //class
         rivalData = tryReceive();
 
-        if(rivalData.equals("Null") || rivalData.isEmpty()) {
+        if (rivalData.equals("Null") || rivalData.isEmpty()) {
             isSuccess = false;
         }
 
@@ -77,20 +79,20 @@ public class VsNetIO{
         rivalData = tryReceive();
         try {
             Rival.rivalMaxHP = Integer.parseInt(rivalData);
-        } catch(NumberFormatException e) {
+        } catch (NumberFormatException e) {
             isSuccess = false;
         }
         rivalData = tryReceive();
         try {
             Rival.rivalCurrHP = Integer.parseInt(rivalData);
-        } catch(NumberFormatException e) {
+        } catch (NumberFormatException e) {
             isSuccess = false;
         }
 
         //turn order
-        if(!VsTheSpire.netManager.isServer()) {
+        if (!VsTheSpire.netManager.isServer()) {
             rivalData = tryReceive();
-            if(rivalData.isEmpty())
+            if (rivalData.isEmpty())
                 isSuccess = false;
             Rival.hasBonus = !Boolean.parseBoolean(rivalData);
         }
@@ -102,7 +104,7 @@ public class VsNetIO{
         boolean isSuccess;
         String dataString = "Null";
         AbstractPlayer.PlayerClass c = AbstractDungeon.player.chosenClass;
-        switch(c) {
+        switch (c) {
             case IRONCLAD:
                 dataString = "Ironclad";
                 break;
@@ -124,7 +126,7 @@ public class VsNetIO{
         isSuccess = trySend(dataString) && isSuccess;
 
         //determine who goes first or gets bonus damage
-        if(VsTheSpire.netManager.isServer()){
+        if (VsTheSpire.netManager.isServer()) {
             boolean bonus = AbstractDungeon.miscRng.randomBoolean();
             Rival.hasBonus = bonus;
             dataString = Boolean.toString(bonus);
@@ -136,11 +138,10 @@ public class VsNetIO{
 
     public boolean handShake() {
         boolean a, b;
-        if(VsTheSpire.netManager.isServer()){
+        if (VsTheSpire.netManager.isServer()) {
             a = getRivalData();
             b = giveMyData();
-        }
-        else {
+        } else {
             a = giveMyData();
             b = getRivalData();
         }
@@ -159,15 +160,15 @@ public class VsNetIO{
         System.out.println("Received " + msg);
 
         i = msg.indexOf(';');
-        if(i != -1) {
+        if (i != -1) {
             type = msg.substring(0, i);
-            args = msg.substring(i+1);
+            args = msg.substring(i + 1);
             //System.out.println("msg received of type: " + type);
-            switch(type) {
+            switch (type) {
                 case "done":
                     //Indicates the rival is done taking their turn.
                     // arg 1 is null.
-                    AbstractDungeon.actionManager.addToBottom(new RollMoveAction((AbstractMonster)owner));
+                    AbstractDungeon.actionManager.addToBottom(new RollMoveAction((AbstractMonster) owner));
                     break;
                 case "playCard":
                     //Show a card in the center of the screen the rival has played.
@@ -176,7 +177,7 @@ public class VsNetIO{
                     //TODO only show card if player doesn't have runic dome
                     i = args.indexOf(';');
                     String cardKey = args.substring(0, i);
-                    args = args.substring(i+1);
+                    args = args.substring(i + 1);
                     i = args.indexOf(';');
                     int upgradeCount = Integer.parseInt(args.substring(0, i));
                     int misc = Integer.parseInt(args.substring(i + 1));
@@ -185,13 +186,13 @@ public class VsNetIO{
                     AbstractDungeon.effectList.add(new ShowCardBrieflyEffect(c));
                     AbstractDungeon.actionManager.addToBottom(new VsRivalWaitAction(VsTheSpire.netIO, owner));
 
-                    for(AbstractPower p : owner.powers) {
-                        if(p instanceof OnRivalPlayCardPower) {
+                    for (AbstractPower p : owner.powers) {
+                        if (p instanceof OnRivalPlayCardPower) {
                             ((OnRivalPlayCardPower) p).onRivalPlayCard(c);
                         }
                     }
-                    for(AbstractPower p : AbstractDungeon.player.powers) {
-                        if(p instanceof OnRivalPlayCardPower) {
+                    for (AbstractPower p : AbstractDungeon.player.powers) {
+                        if (p instanceof OnRivalPlayCardPower) {
                             ((OnRivalPlayCardPower) p).onRivalPlayCard(c);
                         }
                     }
@@ -203,12 +204,11 @@ public class VsNetIO{
                     // arg 2 is the ID of the power. arg 3 is the number of stacks.
                     i = args.indexOf(';');
                     String targetString = args.substring(0, i);
-                    args = args.substring(i+1);
+                    args = args.substring(i + 1);
                     AbstractCreature target;
-                    if(targetString.equals("me")){
+                    if (targetString.equals("me")) {
                         target = owner;
-                    }
-                    else {
+                    } else {
                         target = AbstractDungeon.player;
                     }
                     i = args.indexOf(';');
@@ -216,7 +216,7 @@ public class VsNetIO{
                     args = args.substring(i + 1);
                     int amount = Integer.parseInt(args);
                     AbstractPower p = VsPowerHelper.makePower(target, key, amount);
-                    if(p != null) {
+                    if (p != null) {
                         AbstractDungeon.actionManager.addToBottom(new ApplyPowerAction(target, owner, p));
                     }
                     AbstractDungeon.actionManager.addToBottom(new VsRivalWaitAction(VsTheSpire.netIO, owner));
@@ -226,6 +226,27 @@ public class VsNetIO{
                     // arg 1 is amount.
                     int blockGain = Integer.parseInt(args);
                     AbstractDungeon.actionManager.addToBottom(new GainBlockAction(owner, blockGain));
+                    AbstractDungeon.actionManager.addToBottom(new VsRivalWaitAction(VsTheSpire.netIO, owner));
+                    break;
+                case "loseBlock":
+                    //Removes block from someone.
+                    // arg 1 is the target of the power,
+                    // "me" refers to the rival, "you" is the player
+                    // arg 2 is either the amount, or all if 0.
+                    i = args.indexOf(';');
+                    String blockTargetString = args.substring(0, i);
+                    args = args.substring(i + 1);
+                    AbstractCreature blockTarget;
+                    if (blockTargetString.equals("me")) {
+                        blockTarget = owner;
+                    } else {
+                        blockTarget = AbstractDungeon.player;
+                    }
+                    int blockAmount = Integer.parseInt(args);
+                    if(blockAmount == 0)
+                        AbstractDungeon.actionManager.addToBottom(new RemoveAllBlockAction(blockTarget, owner));
+                    else
+                        AbstractDungeon.actionManager.addToBottom(new LoseBlockAction(blockTarget, owner, blockAmount));
                     AbstractDungeon.actionManager.addToBottom(new VsRivalWaitAction(VsTheSpire.netIO, owner));
                     break;
                 case "heal":
@@ -252,7 +273,7 @@ public class VsNetIO{
                     // arg 1 is card key, arg 2 is # of upgrades, arg 3 is misc.
                     i = args.indexOf(';');
                     String newCardKey = args.substring(0, i);
-                    args = args.substring(i+1);
+                    args = args.substring(i + 1);
                     i = args.indexOf(';');
                     int newUpgradeCount = Integer.parseInt(args.substring(0, i));
                     int newMisc = Integer.parseInt(args.substring(i + 1));
@@ -265,7 +286,7 @@ public class VsNetIO{
                     //Makes the rival flee. (smoke bomb).
                     // arg 1 is null.
                     //TODO implement send for this
-                    if(owner instanceof AbstractMonster){
+                    if (owner instanceof AbstractMonster) {
                         AbstractDungeon.actionManager.addToBottom(new VFXAction(new SmokeBombEffect(owner.hb.cX, owner.hb.cY)));
                         AbstractDungeon.actionManager.addToBottom(new EscapeAction((AbstractMonster) owner));
                     }
@@ -285,8 +306,8 @@ public class VsNetIO{
                 case "changeStance":
                     //Changes the rival's stance.
                     // arg 1 is stance to enter: "empty" "calm" "wrath" or "divinity"
-                    if(owner instanceof Rival){
-                        ((Rival)owner).changeState(args);
+                    if (owner instanceof Rival) {
+                        ((Rival) owner).changeState(args);
                     }
                     AbstractDungeon.actionManager.addToBottom(new VsRivalWaitAction(VsTheSpire.netIO, owner));
                     break;

@@ -23,14 +23,16 @@ public class AggroPower extends VsAbstractPower {
     public static final String[] DESCRIPTIONS = powerStrings.DESCRIPTIONS;
 
     public int hitCount;
+    private boolean damageDelay;
 
     public AggroPower(AbstractCreature owner, int amount) {
         super(ID, NAME, owner);
         this.amount = amount;
         this.hitCount = 1;
         this.priority = 100;
+        this.damageDelay = false;
         updateDescription();
-        loadRegion("doubleDamage");
+        loadRegion("strength");
     }
 
     @Override
@@ -55,28 +57,36 @@ public class AggroPower extends VsAbstractPower {
         }
     }
 
+    public void delayDamage(){
+        this.damageDelay = true;
+    }
+
     @Override
     public void atStartOfTurn() {
-        if(owner.isPlayer) {
-            AbstractDungeon.actionManager.addToBottom(new ChivalryModeAction(this.owner, ChivalryPower.DamageMode.STRIKE));
+        if(this.damageDelay)
+            this.damageDelay = false;
+        else if(owner.hasPower(ChivalryPower.ID)) {
+            if (owner.isPlayer && !((ChivalryPower)owner.getPower(ChivalryPower.ID)).isExtraTurn()) {
+                AbstractDungeon.actionManager.addToBottom(new ChivalryModeAction(this.owner, ChivalryPower.DamageMode.STRIKE));
 
-            float damage = this.amount;
-            if(owner.hasPower(WeakPower.POWER_ID)) {
-                damage = damage * 0.75F;
+                float damage = this.amount;
+                if (owner.hasPower(WeakPower.POWER_ID)) {
+                    damage = damage * 0.75F;
+                }
+                if (AbstractDungeon.getCurrRoom().monsters.monsters.get(0).hasPower(WrathPower.POWER_ID)) {
+                    damage = damage * 2.0F;
+                }
+
+                addToBot(new DamageAllEnemiesAction(this.owner, DamageInfo.createDamageMatrix(floor(damage), true),
+                        DamageInfo.DamageType.NORMAL, AbstractGameAction.AttackEffect.NONE));
+
+                AbstractDungeon.actionManager.addToBottom(new ChivalryModeAction(this.owner, ChivalryPower.DamageMode.CHARGE));
+                for (AbstractMonster m : AbstractDungeon.getCurrRoom().monsters.monsters) {
+                    AbstractDungeon.actionManager.addToBottom(new ChivalryModeAction(m, ChivalryPower.DamageMode.BLOCK));
+                }
+
+                addToBot(new RemoveSpecificPowerAction(this.owner, this.owner, AggroPower.ID));
             }
-            if(AbstractDungeon.getCurrRoom().monsters.monsters.get(0).hasPower(WrathPower.POWER_ID)){
-                damage = damage * 2.0F;
-            }
-
-            addToBot(new DamageAllEnemiesAction(this.owner, DamageInfo.createDamageMatrix(floor(damage), true),
-                    DamageInfo.DamageType.NORMAL, AbstractGameAction.AttackEffect.NONE));
-
-            AbstractDungeon.actionManager.addToBottom(new ChivalryModeAction(this.owner, ChivalryPower.DamageMode.CHARGE));
-            for(AbstractMonster m: AbstractDungeon.getCurrRoom().monsters.monsters) {
-                AbstractDungeon.actionManager.addToBottom(new ChivalryModeAction(m, ChivalryPower.DamageMode.BLOCK));
-            }
-
-            addToBot(new RemoveSpecificPowerAction(this.owner, this.owner, AggroPower.ID));
         }
     }
 

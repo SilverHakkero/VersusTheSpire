@@ -17,12 +17,15 @@ public class PassiveAggroPower extends VsAbstractPower{
     public static final String NAME = powerStrings.NAME;
     public static final String[] DESCRIPTIONS = powerStrings.DESCRIPTIONS;
 
+    private boolean damageDelay;
+
     public PassiveAggroPower(AbstractCreature owner, int amount) {
         super(ID, NAME, owner);
         this.amount = amount;
         this.priority = 101;
+        this.damageDelay = false;
         updateDescription();
-        loadRegion("deva");
+        loadRegion("vigor");
     }
 
     @Override
@@ -33,21 +36,29 @@ public class PassiveAggroPower extends VsAbstractPower{
         }
     }
 
+    public void delayDamage(){
+        this.damageDelay = true;
+    }
+
     @Override
     public void atStartOfTurn() {
-        if(owner.isPlayer) {
-            AbstractDungeon.actionManager.addToBottom(new ChivalryModeAction(this.owner, ChivalryPower.DamageMode.STRIKE));
+        if(this.damageDelay)
+            this.damageDelay = false;
+        else if(owner.hasPower(ChivalryPower.ID)) {
+            if (owner.isPlayer && !((ChivalryPower) owner.getPower(ChivalryPower.ID)).isExtraTurn()) {
+                AbstractDungeon.actionManager.addToBottom(new ChivalryModeAction(this.owner, ChivalryPower.DamageMode.STRIKE));
 
-            addToBot(new DamageAllEnemiesAction(this.owner, DamageInfo.createDamageMatrix(this.amount, true),
-                    DamageInfo.DamageType.THORNS, AbstractGameAction.AttackEffect.NONE));
+                addToBot(new DamageAllEnemiesAction(this.owner, DamageInfo.createDamageMatrix(this.amount, true),
+                        DamageInfo.DamageType.THORNS, AbstractGameAction.AttackEffect.NONE));
 
-            AbstractDungeon.actionManager.addToBottom(new ChivalryModeAction(this.owner, ChivalryPower.DamageMode.CHARGE));
-            if(!this.owner.hasPower(AggroPower.ID)) {
-                for (AbstractMonster m : AbstractDungeon.getCurrRoom().monsters.monsters) {
-                    AbstractDungeon.actionManager.addToBottom(new ChivalryModeAction(m, ChivalryPower.DamageMode.BLOCK));
+                AbstractDungeon.actionManager.addToBottom(new ChivalryModeAction(this.owner, ChivalryPower.DamageMode.CHARGE));
+                if (!this.owner.hasPower(AggroPower.ID)) {
+                    for (AbstractMonster m : AbstractDungeon.getCurrRoom().monsters.monsters) {
+                        AbstractDungeon.actionManager.addToBottom(new ChivalryModeAction(m, ChivalryPower.DamageMode.BLOCK));
+                    }
                 }
+                addToBot(new RemoveSpecificPowerAction(this.owner, this.owner, PassiveAggroPower.ID));
             }
-            addToBot(new RemoveSpecificPowerAction(this.owner, this.owner, PassiveAggroPower.ID));
         }
     }
 
