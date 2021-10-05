@@ -2,10 +2,12 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="619d99f8-ad3a-4124-aaa1-6842fe5a9bc7" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/src/main/java/vsthespire/patches/cards/JudgementPatch.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/vsthespire/powers/FeedPower.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/vsthespire/VsTheSpire.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/vsthespire/VsTheSpire.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/vsthespire/net/NetworkManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/vsthespire/net/NetworkManager.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/vsthespire/patches/powers/ChivalryPatch.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/vsthespire/patches/powers/ChivalryPatch.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/vsthespire/net/VsNetIO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/vsthespire/net/VsNetIO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/vsthespire/patches/cards/MelterPatch.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/vsthespire/patches/cards/MelterPatch.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/vsthespire/patches/powers/MarkPatch.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/vsthespire/patches/powers/MarkPatch.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -48,6 +50,7 @@
     <property name="project.structure.last.edited" value="Modules" />
     <property name="project.structure.proportion" value="0.0" />
     <property name="project.structure.side.proportion" value="0.0" />
+    <property name="settings.editor.selected.configurable" value="settings.github" />
   </component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
@@ -137,7 +140,21 @@
       <option name="project" value="LOCAL" />
       <updated>1608278667721</updated>
     </task>
-    <option name="localTasksCounter" value="9" />
+    <task id="LOCAL-00009" summary="Various network and damage bug fixes">
+      <created>1608794110428</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1608794110428</updated>
+    </task>
+    <task id="LOCAL-00010" summary="Card Fixes Pt 1 (Melter untested)">
+      <created>1627955869474</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1627955869474</updated>
+    </task>
+    <option name="localTasksCounter" value="11" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
@@ -151,36 +168,42 @@
     <MESSAGE value="Added project files" />
     <MESSAGE value="Aggro reduced by Strength bug fix" />
     <MESSAGE value="Passive Aggro renamed to Charge" />
-    <option name="LAST_COMMIT_MESSAGE" value="Passive Aggro renamed to Charge" />
+    <MESSAGE value="Various network and damage bug fixes" />
+    <MESSAGE value="Card Fixes Pt 1 (Melter untested)" />
+    <option name="LAST_COMMIT_MESSAGE" value="Card Fixes Pt 1 (Melter untested)" />
   </component>
   <component name="WindowStateProjectService">
-    <state x="620" y="114" key="CommitChangelistDialog2" timestamp="1608278666358">
+    <state x="615" y="114" key="CommitChangelistDialog2" timestamp="1627955866733">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="620" y="114" key="CommitChangelistDialog2/0.0.1920.1040@0.0.1920.1040" timestamp="1608278666358" />
-    <state width="1514" height="266" key="GridCell.Tab.0.bottom" timestamp="1608794065656">
+    <state x="615" y="114" key="CommitChangelistDialog2/0.0.1920.1040@0.0.1920.1040" timestamp="1627955866733" />
+    <state width="1514" height="266" key="GridCell.Tab.0.bottom" timestamp="1627967061158">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1514" height="266" key="GridCell.Tab.0.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1608794065656" />
-    <state width="1514" height="266" key="GridCell.Tab.0.center" timestamp="1608794065656">
+    <state width="1514" height="266" key="GridCell.Tab.0.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1627967061158" />
+    <state width="1514" height="266" key="GridCell.Tab.0.center" timestamp="1627967061158">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1514" height="266" key="GridCell.Tab.0.center/0.0.1920.1040@0.0.1920.1040" timestamp="1608794065656" />
-    <state width="1514" height="266" key="GridCell.Tab.0.left" timestamp="1608794065656">
+    <state width="1514" height="266" key="GridCell.Tab.0.center/0.0.1920.1040@0.0.1920.1040" timestamp="1627967061158" />
+    <state width="1514" height="266" key="GridCell.Tab.0.left" timestamp="1627967061158">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1514" height="266" key="GridCell.Tab.0.left/0.0.1920.1040@0.0.1920.1040" timestamp="1608794065656" />
-    <state width="1514" height="266" key="GridCell.Tab.0.right" timestamp="1608794065656">
+    <state width="1514" height="266" key="GridCell.Tab.0.left/0.0.1920.1040@0.0.1920.1040" timestamp="1627967061158" />
+    <state width="1514" height="266" key="GridCell.Tab.0.right" timestamp="1627967061158">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1514" height="266" key="GridCell.Tab.0.right/0.0.1920.1040@0.0.1920.1040" timestamp="1608794065656" />
-    <state x="558" y="253" key="Vcs.Push.Dialog.v2" timestamp="1608278676824">
+    <state width="1514" height="266" key="GridCell.Tab.0.right/0.0.1920.1040@0.0.1920.1040" timestamp="1627967061158" />
+    <state x="467" y="162" key="SettingsEditor" timestamp="1627956305710">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="558" y="253" key="Vcs.Push.Dialog.v2/0.0.1920.1040@0.0.1920.1040" timestamp="1608278676824" />
-    <state x="675" y="350" key="com.intellij.ide.util.TipDialog" timestamp="1608777186045">
+    <state x="467" y="162" key="SettingsEditor/0.0.1920.1040@0.0.1920.1040" timestamp="1627956305710" />
+    <state x="558" y="253" key="Vcs.Push.Dialog.v2" timestamp="1627955887650">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="675" y="350" key="com.intellij.ide.util.TipDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1608777186045" />
+    <state x="558" y="253" key="Vcs.Push.Dialog.v2/0.0.1920.1040@0.0.1920.1040" timestamp="1627955887650" />
+    <state x="675" y="350" key="com.intellij.ide.util.TipDialog" timestamp="1633455941521">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="675" y="350" key="com.intellij.ide.util.TipDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1633455941521" />
   </component>
 </project>

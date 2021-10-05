@@ -16,6 +16,7 @@ import com.megacrit.cardcrawl.vfx.cardManip.ShowCardBrieflyEffect;
 import com.megacrit.cardcrawl.vfx.combat.SmokeBombEffect;
 import vsthespire.VsTheSpire;
 import vsthespire.actions.VsRivalWaitAction;
+import vsthespire.cards.Paralysis;
 import vsthespire.helpers.VsPowerHelper;
 import vsthespire.monsters.Rival;
 import vsthespire.powers.interfaces.OnRivalPlayCardPower;
@@ -279,6 +280,8 @@ public class VsNetIO {
                     int newMisc = Integer.parseInt(args.substring(i + 1));
 
                     AbstractCard card = CardLibrary.getCopy(newCardKey, newUpgradeCount, newMisc);
+                    if(newCardKey.equals(Paralysis.ID))
+                        ((Paralysis) card).setX(newMisc);
                     AbstractDungeon.actionManager.addToBottom(new MakeTempCardInDiscardAction(card, 1));
                     AbstractDungeon.actionManager.addToBottom(new VsRivalWaitAction(VsTheSpire.netIO, owner));
                     break;

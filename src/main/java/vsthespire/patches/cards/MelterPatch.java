@@ -11,7 +11,7 @@ public class MelterPatch {
     public static class RemoveBlockPatch{
         public static void Postfix(){
             if(VsTheSpire.isConnected && AbstractDungeon.player.hasPower(ChivalryPower.ID)){
-                VsTheSpire.netIO.trySend("loseBlock;you");
+                VsTheSpire.netIO.trySend("loseBlock;you;0");
             }
         }
     }
